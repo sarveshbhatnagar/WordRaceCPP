@@ -8,6 +8,7 @@
 #include <iostream>
 #include <vector>
 #include <fstream>
+#include <random>
 
 #define cout std::cout
 #define endl std::endl
@@ -27,7 +28,7 @@ public:
         }
         fs.close();
     }
-    //Constructor calls fillWords to initialize the vector
+//    Constructor calls fillWords to initialize the vector
     WordList(){
         fillWords();
     }
@@ -61,12 +62,28 @@ public:
             cout<<"Index out of range"<<endl;
         }
     }
+    
+    //returns a word from the list
+    std::string fetchWord(int n){
+        return words.at(n);
+    }
 };
 
-int main(int argc, const char * argv[]) {
-    WordList w;
-    cout<<w.size()<<endl;
-    w.printWord(4);
+//Namespace for interacting with the class wordlist
+namespace words {
+    //returns a random word
+    std::string getRandom(){
+        std::random_device rd;
+        return WordList().fetchWord(rd()%WordList().size());
+    }
     
+    //function to access size of words.
+    unsigned long size(){
+        return WordList().size();
+    }
+}
+
+int main(int argc, const char * argv[]) {
+    cout<<words::getRandom()<<endl;
     return 0;
 }
