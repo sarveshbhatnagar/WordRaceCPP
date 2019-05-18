@@ -83,7 +83,63 @@ namespace words {
     }
 }
 
+namespace wordsInterfaceHandler {
+    int interfaceOption(0);
+    
+    //Prints the UI interface
+    void print(){
+        cout
+        <<"Welcome to Word Race!"<<endl
+        <<"1. Start a 20 word challenge"<<endl
+        <<"2. Start a 50 word challenge"<<endl
+        <<"3. Start a 100 word challenge"<<endl
+        <<"4. Start complete word list challenge"<<endl;
+    }
+    
+    //changes the interface option variable, according to the print statement.
+    void select(){
+        std::cin>>interfaceOption;
+    }
+    
+    //Error message made using switch for reusing the code if required in future.
+    void error(int n=1){
+        switch (n) {
+            case 1:
+                cout<<endl<<endl<<"Please select one of the options listed below!"<<endl;
+                break;
+            default:
+                cout<<"Some error occured!"<<endl;
+                break;
+        }
+    }
+    
+    
+    //Currently checks basic error related to interface option selection.
+    bool checkError(){
+        if (interfaceOption < 1 || interfaceOption>4) {
+            return true;
+        }
+        return false;
+    }
+    
+    
+    //Interface option is properly set.
+    void run(){
+        while (true) {
+            print();
+            select();
+            if (checkError()) {
+                error();
+            }else{
+                break;
+            }
+        }
+        cout<<"Done!"<<endl;
+    }
+}
+
 int main(int argc, const char * argv[]) {
     cout<<words::getRandom()<<endl;
+    wordsInterfaceHandler::run();
     return 0;
 }
