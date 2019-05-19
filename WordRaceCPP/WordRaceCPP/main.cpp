@@ -9,6 +9,7 @@
 #include <vector>
 #include <fstream>
 #include <random>
+#include <ctime>
 
 #define cout std::cout
 #define endl std::endl
@@ -71,6 +72,9 @@ public:
 
 //Namespace for interacting with the class wordlist
 namespace words {
+    time_t start(NULL),stop(NULL);
+    bool timeflag(true);
+    
     //returns a random word
     std::string getRandom(){
         std::random_device rd;
@@ -81,6 +85,32 @@ namespace words {
     unsigned long size(){
         return WordList().size();
     }
+    
+    //auxillary function for timer to set a start point
+    void startTimer(){
+        time(&start);
+    }
+    
+    //auxillary function for timer to set a stop point
+    void stopTimer(){
+        time(&stop);
+    }
+    
+    //Alternatively sets start and stop time when called.
+    void timer(){
+        if (timeflag) {
+            startTimer();
+            timeflag=false;
+        }else{
+            stopTimer();
+            timeflag=true;
+        }
+    }
+    
+    double timerDifference(){
+        return difftime(stop, start);
+    }
+    
 }
 
 namespace wordsInterfaceHandler {
@@ -139,7 +169,13 @@ namespace wordsInterfaceHandler {
 }
 
 int main(int argc, const char * argv[]) {
+    int a;
+    words::timer();
     cout<<words::getRandom()<<endl;
-    wordsInterfaceHandler::run();
+    cout<<"Enter something "<<endl;
+    std::cin>>a;
+    words::timer();
+    cout<<"Time taken "<<words::timerDifference()<<" Seconds"<<endl;
+//    wordsInterfaceHandler::run();
     return 0;
 }
