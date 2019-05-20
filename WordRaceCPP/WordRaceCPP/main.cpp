@@ -114,7 +114,9 @@ namespace words {
 }
 
 namespace wordsInterfaceHandler {
+    //Only variable to be accessed.
     int interfaceOption(0);
+    int interfaceValue(10);
     
     //Prints the UI interface
     void print(){
@@ -124,6 +126,27 @@ namespace wordsInterfaceHandler {
         <<"2. Start a 50 word challenge"<<endl
         <<"3. Start a 100 word challenge"<<endl
         <<"4. Start complete word list challenge"<<endl;
+    }
+    
+    //Sets the interfacevalue according to interface option
+    void setInterfaceValue(){
+        switch (interfaceOption) {
+            case 1:
+                interfaceValue=20;
+                break;
+            case 2:
+                interfaceValue=50;
+                break;
+            case 3:
+                interfaceValue=100;
+                break;
+            case 4:
+                interfaceValue=int(WordList().size());
+                break;
+            default:
+                interfaceValue=10;
+                break;
+        }
     }
     
     //changes the interface option variable, according to the print statement.
@@ -153,7 +176,7 @@ namespace wordsInterfaceHandler {
     }
     
     
-    //Interface option is properly set.
+    //Interface option is properly set, only function to be actually used.
     void run(){
         while (true) {
             print();
@@ -161,6 +184,7 @@ namespace wordsInterfaceHandler {
             if (checkError()) {
                 error();
             }else{
+                setInterfaceValue();
                 break;
             }
         }
@@ -168,14 +192,25 @@ namespace wordsInterfaceHandler {
     }
 }
 
+
+
 int main(int argc, const char * argv[]) {
-    int a;
+    std::string input="";
+    std::string output;
+    wordsInterfaceHandler::run();
+    int n(wordsInterfaceHandler::interfaceValue);
+    char ws;
+    ws = std::cin.get();
     words::timer();
-    cout<<words::getRandom()<<endl;
-    cout<<"Enter something "<<endl;
-    std::cin>>a;
+    for (int i = 0; i<n; ++i) {
+        output = words::getRandom();
+        cout<<output<<endl;
+        cout<<"Enter the above text!"<<endl;
+        getline(std::cin, input);
+        cout<<"Your Input "<<input<<endl;
+    }
     words::timer();
-    cout<<"Time taken "<<words::timerDifference()<<" Seconds"<<endl;
+    cout<<"Total time taken "<<words::timerDifference()<<" Seconds"<<endl;
 //    wordsInterfaceHandler::run();
     return 0;
 }
