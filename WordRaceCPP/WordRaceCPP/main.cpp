@@ -128,7 +128,6 @@ namespace wordsInterfaceHandler {
         <<"4. Start complete word list challenge"<<endl;
     }
     
-    //Sets the interfacevalue according to interface option
     void setInterfaceValue(){
         switch (interfaceOption) {
             case 1:
@@ -192,11 +191,21 @@ namespace wordsInterfaceHandler {
     }
 }
 
+bool compareString(std::string a, std::string b){
+    if (a.compare(b) == 0) {
+        return true; // they are equal
+    }else{
+        return false;// they are not equal
+    }
+}
+
 
 
 int main(int argc, const char * argv[]) {
+    
     std::string input="";
     std::string output;
+    int score(0);
     wordsInterfaceHandler::run();
     int n(wordsInterfaceHandler::interfaceValue);
     char ws;
@@ -207,10 +216,12 @@ int main(int argc, const char * argv[]) {
         cout<<output<<endl;
         cout<<"Enter the above text!"<<endl;
         getline(std::cin, input);
-        cout<<"Your Input "<<input<<endl;
+        if (compareString(input, output)) {
+            score+=1;
+        }
     }
     words::timer();
     cout<<"Total time taken "<<words::timerDifference()<<" Seconds"<<endl;
-//    wordsInterfaceHandler::run();
+    cout<<"Score is : "<<score<<endl;
     return 0;
 }
