@@ -118,6 +118,8 @@ namespace wordsInterfaceHandler {
     int interfaceOption(0);
     int interfaceValue(10);
     
+    void run();
+    
     //Prints the UI interface
     void print(){
         cout
@@ -125,7 +127,17 @@ namespace wordsInterfaceHandler {
         <<"1. Start a 20 word challenge"<<endl
         <<"2. Start a 50 word challenge"<<endl
         <<"3. Start a 100 word challenge"<<endl
-        <<"4. Start complete word list challenge"<<endl;
+        <<"4. Enter a new word to the list"<<endl
+        <<"5. Exit"<<endl;
+    }
+    
+    void addWordUI(){
+        cout<<"Enter the sentence you want to add "<<endl;
+        std::string w;
+        w = std::cin.get();
+        getline(std::cin, w);
+        WordList().addWord(w);
+//        w = std::cin.get();
     }
     
     void setInterfaceValue(){
@@ -140,7 +152,11 @@ namespace wordsInterfaceHandler {
                 interfaceValue=100;
                 break;
             case 4:
-                interfaceValue=int(WordList().size());
+                addWordUI();
+                run();
+                break;
+            case 5:
+                exit(0);
                 break;
             default:
                 interfaceValue=10;
@@ -168,7 +184,7 @@ namespace wordsInterfaceHandler {
     
     //Currently checks basic error related to interface option selection.
     bool checkError(){
-        if (interfaceOption < 1 || interfaceOption>4) {
+        if (interfaceOption < 1 || interfaceOption>5) {
             return true;
         }
         return false;
@@ -187,7 +203,6 @@ namespace wordsInterfaceHandler {
                 break;
             }
         }
-        cout<<"Done!"<<endl;
     }
 }
 
