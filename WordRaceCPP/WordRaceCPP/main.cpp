@@ -86,12 +86,12 @@ namespace words {
         return WordList().size();
     }
     
-    //auxillary function for timer to set a start point
+    //auxiliary function for timer to set a start point
     void startTimer(){
         time(&start);
     }
     
-    //auxillary function for timer to set a stop point
+    //auxiliary function for timer to set a stop point
     void stopTimer(){
         time(&stop);
     }
